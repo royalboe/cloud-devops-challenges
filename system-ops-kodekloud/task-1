@@ -1,0 +1,4 @@
+# Linux file permissions
+# Grant executable permission to a file
+
+chmod +x <filepath/filename>

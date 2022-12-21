@@ -1,0 +1,13 @@
+#Time zones
+
+# Check timezones using ls
+ls -l /etc/localtime
+
+# Check time
+timedatectl
+
+# List time zones
+timedatectl list-timezones
+
+#set timezone
+sudo timedatectl set-timezone <timezone>
