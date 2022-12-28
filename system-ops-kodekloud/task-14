@@ -1,0 +1,13 @@
+# Install SElinux packages and set it to disable
+
+# Check for packages
+sudo rpm -aq | grep selinux
+
+# Install set up tools
+sudo yum install policycoreutils policycoreutils-python setools setools-console setroubleshoot
+
+# Update packages
+sudo yum install selinux-policy-targeted
+
+# In /etc/selinux/config replace enforcing with disable
+sudo sed -i \s/enforcing/disable/\ /etc/selinux/config
