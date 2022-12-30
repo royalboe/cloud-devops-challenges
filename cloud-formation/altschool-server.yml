@@ -33,6 +33,8 @@ Resources:
         FromPort: 80
         ToPort: 80
         CidrIp: 0.0.0.0/0
+
+  # Security group for the web servers in the private subnets.
   WebServerSecGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -54,6 +56,7 @@ Resources:
         FromPort: 0
         ToPort: 65535
         CidrIp: 0.0.0.0/0
+    
   WebAppLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
@@ -78,6 +81,8 @@ Resources:
       - DeviceName: "/dev/sdk"
         Ebs:
           VolumeSize: 10
+  
+# Autoscaling group for ec2 instances
   WebAppGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
@@ -90,6 +95,8 @@ Resources:
       MaxSize: '2'
       TargetGroupARNs:
       - Ref: WebAppTargetGroup
+
+# Load balancer
   WebAppLB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -98,6 +105,8 @@ Resources:
       - Fn::ImportValue: !Sub "${EnvironmentName}-PUB2-SN"
       SecurityGroups:
       - Ref: LBSecGroup
+  
+  
   Listener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
@@ -109,6 +118,8 @@ Resources:
         Ref: WebAppLB
       Port: '80'
       Protocol: HTTP
+
+
   ALBListenerRule:
       Type: AWS::ElasticLoadBalancingV2::ListenerRule
       Properties:
@@ -120,6 +131,8 @@ Resources:
           Values: [/]
         ListenerArn: !Ref 'Listener'
         Priority: 1
+  
+  
   WebAppTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:

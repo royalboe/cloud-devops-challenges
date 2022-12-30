@@ -203,7 +203,7 @@ Resources:
         Type: AWS::EC2::SubnetRouteTableAssociation
         Properties:
             RouteTableId: !Ref PrivateRouteTable2
-            SubnetId: !Ref PrivateSubnet2
+            SubnetId: !Ref PrivateSubnet2 
 
 Outputs: 
 
