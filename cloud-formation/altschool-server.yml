@@ -12,6 +12,7 @@ Parameters:
         Type: String
 
 Resources:
+  # For the Loadbalancer Security Group 
   LBSecGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -57,6 +58,7 @@ Resources:
         ToPort: 65535
         CidrIp: 0.0.0.0/0
     
+# The launch configuration settings to use with the auto scaling group
   WebAppLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
@@ -106,7 +108,8 @@ Resources:
       SecurityGroups:
       - Ref: LBSecGroup
   
-  
+
+# The loadbalancer listener  
   Listener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
@@ -119,7 +122,7 @@ Resources:
       Port: '80'
       Protocol: HTTP
 
-
+# The listerner rules
   ALBListenerRule:
       Type: AWS::ElasticLoadBalancingV2::ListenerRule
       Properties:
@@ -132,7 +135,7 @@ Resources:
         ListenerArn: !Ref 'Listener'
         Priority: 1
   
-  
+  # The load balancing target group configuration
   WebAppTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
