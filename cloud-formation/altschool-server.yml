@@ -94,7 +94,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref WebAppInstanceImageAMI
-      KeyName: royalboe-bastion
+      KeyName: bastion-key
       InstanceType: !Ref BastionHostInstanceType
       NetworkInterfaces:
         - DeviceIndex: "0"
