@@ -1,6 +1,6 @@
 Description: >
   Ayomide Johnson Salami / Software engineer
-  This template deploys an auto scaling group of min four servers in 2 private subnets, 
+  This template deploys an auto scaling group of min two servers in 2 private subnets, 
   with an application loadbalancer to distribute traffic between the servers. It also creates
   a bastion host that lets admin access the private servers.
   The servers have a launch templates with an nginx server installed and listening on port 80
@@ -94,7 +94,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref WebAppInstanceImageAMI
-      KeyName: bastion-key
+      KeyName: bastion-host
       InstanceType: !Ref BastionHostInstanceType
       NetworkInterfaces:
         - DeviceIndex: "0"
@@ -123,7 +123,10 @@ Resources:
                     host=$(hostname)
                     ip=$(ifconfig | grep 'inet ' | grep -v '127.0.0.1' | cut -c 7-17)
                     sudo chown -R $USER:$USER /var/www
-                    echo '<h1> Host name / IP address for this server is '$host'</h1>' > /var/www/html/index.nginx-debian.html
+                    rm /var/www/html/index.nginx-debian.html
+                    echo '<h1> Host Name </h1>' > /var/www/html/index.html
+                    echo '<h3> Host name for this server is '$host'</h3>' >> /var/www/html/index.html
+                    echo '<h4> Created by Ayomide </h4>' >> /var/www/html/index.html
             ImageId: !Ref WebAppInstanceImageAMI
             SecurityGroupIds: 
                 - !Ref WebServerSecGroup
