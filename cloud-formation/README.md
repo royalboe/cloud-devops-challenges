@@ -6,6 +6,7 @@ This is a cloud formation script to automate the creation of Network Compute inf
 This folder contains two template files and two parameter files.
 
 ## Files
+
 ---------------------------------------------------|--------------------------------------------------------------------
 
 - [Network Template File](./altschool-network.yml) | This file conations the script to create a VPC with 2 availability zones each containing a private and public subnet. Each of the public subnets contains a NAT gateway. The VPC network will also be created with an Internet gateway so that it can communicate with the Internet. There are route tables and route rules created also. This stack, after created successfully, it output some global values such as the id of the VPCs and Subnets can can be used by another stack.
